@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monisha Raja | Data Science Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --secondary: #ff006e;
+            --accent: #8338ec;
+            --dark-bg: #0a0e27;
+            --card-bg: #16213e;
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a0cc;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0f1535 50%, #1a0a2e 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(131, 56, 236, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 14, 39, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 3rem 4rem;
+            text-align: center;
+            margin-top: 80px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--dark-bg);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-card {
+            background: rgba(22, 33, 62, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+            background: rgba(22, 33, 62, 0.9);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(22, 33, 62, 0.5), rgba(30, 58, 95, 0.5));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(131, 56, 236, 0.1));
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .project-impact {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            font-size: 0.95rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Education Section */
+        .education-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+        }
+
+        .education-item {
+            margin-bottom: 2.5rem;
+            margin-left: 80px;
+            position: relative;
+            background: rgba(22, 33, 62, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            border-left-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -45px;
+            top: 2rem;
+            width: 14px;
+            height: 14px;
+            background: var(--primary);
+            border: 3px solid var(--dark-bg);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .education-school {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-period {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-details {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(131, 56, 236, 0.05));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.9);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .education-timeline::before {
+                left: 15px;
+            }
+
+            .education-item {
+                margin-left: 50px;
+            }
+
+            .education-item::before {
+                left: -32px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">MR</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Monisha Raja P</h1>
+            <p class="hero-subtitle">Data Science | Machine Learning | Analytics</p>
+            <p class="hero-description">
+                Passionate data scientist dedicated to transforming complex datasets into actionable insights. 
+                Currently pursuing M.Sc. in Data Science with expertise in predictive modeling, statistical analysis, 
+                and full-stack ML applications.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3><i class="fas fa-code"></i> Programming</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Core Java</span>
+                    <span class="skill-tag">R</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fas fa-database"></i> Data & Analytics</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Excel</span>
+                    <span class="skill-tag">MySQL</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fas fa-chart-line"></i> Machine Learning</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Scikit-learn</span>
+                    <span class="skill-tag">Prophet</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">Model Evaluation</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fas fa-palette"></i> Visualization</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Matplotlib</span>
+                    <span class="skill-tag">Seaborn</span>
+                    <span class="skill-tag">Power BI</span>
+                    <span class="skill-tag">Gradio</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Jupyter</span>
+                    <span class="skill-tag">GitHub</span>
+                    <span class="skill-tag">Anaconda</span>
+                    <span class="skill-tag">VS Code</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fas fa-graduation-cap"></i> Certifications</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Naan Mudhalvan</span>
+                    <span class="skill-tag">Microsoft Excel</span>
+                    <span class="skill-tag">Power BI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">IPL 2025 Batting Performance</div>
+                    <div class="project-subtitle">ML Prediction Model</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        Analyzed 200+ IPL players' performance data and built a Linear Regression model achieving R² score of 0.87 for forecasting runs based on key statistics.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Pandas</span>
+                        <span class="tech-badge">Scikit-learn</span>
+                        <span class="tech-badge">Matplotlib</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> Strategic player selection insights
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Air Quality Index Prediction</div>
+                    <div class="project-subtitle">Environmental Analytics</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        Processed 10,000+ environmental records with end-to-end ML pipeline using Prophet and Scikit-learn for accurate AQI forecasting.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Prophet</span>
+                        <span class="tech-badge">Seaborn</span>
+                        <span class="tech-badge">Data Cleaning</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> Policy decision support
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Stroke Risk Prediction</div>
+                    <div class="project-subtitle">Healthcare ML System</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        End-to-end ML system with Logistic Regression & Random Forest. Deployed interactive Gradio web app for real-time stroke risk assessment.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Gradio</span>
+                        <span class="tech-badge">Random Forest</span>
+                        <span class="tech-badge">ROC-AUC</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> Real-time prediction deployment
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">YouTube Engagement Analysis</div>
+                    <div class="project-subtitle">Social Media Analytics</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        Analyzed video metadata to predict engagement metrics. Identified key factors influencing video popularity and virality patterns.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Data Analysis</span>
+                        <span class="tech-badge">Visualization</span>
+                        <span class="tech-badge">EDA</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> Content strategy insights
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Electricity Demand Forecasting</div>
+                    <div class="project-subtitle">Time Series Analysis</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        Developed predictive model using time series algorithms to forecast electricity consumption and identify usage patterns.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Time Series</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Scikit-learn</span>
+                        <span class="tech-badge">Pattern Recognition</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> Energy optimization
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">ResumeForge Pro</div>
+                    <div class="project-subtitle">AI Resume Optimization</div>
+                </div>
+                <div class="project-content">
+                    <p class="project-description">
+                        Full-stack application using ML and NLP to analyze job descriptions, extract keywords, and optimize ATS compatibility.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">NLP</span>
+                        <span class="tech-badge">ML</span>
+                        <span class="tech-badge">Full-Stack</span>
+                        <span class="tech-badge">Python</span>
+                    </div>
+                    <div class="project-impact">
+                        <i class="fas fa-star"></i> ATS compatibility engine
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title">Education & Experience</h2>
+        <div class="education-timeline">
+            <div class="education-item">
+                <div class="education-degree">M.Sc. in Data Science</div>
+                <div class="education-school">St. Xavier's College, Palayamkottai</div>
+                <div class="education-period">June 2024 – 2026 (Current)</div>
+                <div class="education-details">
+                    Led academic projects involving predictive modeling, statistical analysis, and algorithm development. 
+                    Participated in 5+ seminars and workshops on emerging data science trends.
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="education-degree">B.Sc. in Computer Science</div>
+                <div class="education-school">Manonmaniam Sundaranar University College</div>
+                <div class="education-period">2021 – 2024</div>
+                <div class="education-details">
+                    CGPA: 8.0/10 | Completed 6+ hands-on projects in Java, Python, and SQL with efficiency improvements up to 30%.
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="education-degree">Data Science Intern</div>
+                <div class="education-school">Mavepizon, Tirunelveli</div>
+                <div class="education-period">May 2025</div>
+                <div class="education-details">
+                    Conducted real-world data analysis and developed predictive models. Delivered visualization dashboards 
+                    that improved team data interpretation efficiency by 25%.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">
+                I'm always interested in hearing about new projects and opportunities. 
+                Feel free to reach out through any of the channels below.
+            </p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">+91 7305298557</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">monisha.raja.p@email.com</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-label">Location</div>
+                    <div class="contact-value">Tirunelveli, Tamil Nadu</div>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://linkedin.com/in/p-monisha-raja-37860529b" target="_blank" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/monisharaja1" target="_blank" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:monisha.raja.p@email.com" class="social-link" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Monisha Raja P. All rights reserved. | Designed & Developed with <span style="color: var(--secondary);">❤️</span></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Apply intersection observer to cards
+        document.querySelectorAll('.skill-card, .project-card, .education-item').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        // Active navigation link highlighting
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = 'var(--primary)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
